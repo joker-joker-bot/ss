@@ -1,22 +1,23 @@
-import streamlit as st
+import gradio as gr
 
-# 1. 设置页面标题
-st.set_page_config(page_title="视频播放器", page_icon="🎬")
+# 1. 定义一个简单的界面函数（虽然这里不需要输入，但Gradio习惯这样写）
+def video_player():
+    return "video.mp4"
 
-st.title("🎬 视频播放测试")
-st.write("正在尝试使用原生 HTML 播放 video.mp4...")
+# 2. 创建 Gradio 界面
+with gr.Blocks() as demo:
+    gr.Markdown("## 🎬 我的视频播放器")
+    
+    # 核心代码：使用 gr.Video 组件
+    # 这里直接指定文件名，Gradio 会自动处理路径
+    video = gr.Video(
+        value="video.mp4", 
+        label="视频预览", 
+        autoplay=True, # 自动播放
+        show_share_button=True # 显示分享按钮
+    )
 
-# 2. 核心代码：原生 HTML 播放器
-# 注意：这里直接引用同目录下的 video.mp4
-video_html = """
-<video width="100%" height="auto" controls autoplay>
-  <source src="video.mp4" type="video/mp4">
-  您的浏览器不支持视频标签。
-</video>
-"""
-
-# 3. 在页面上显示
-st.markdown(video_html, unsafe_allow_html=True)
-
-# 调试信息
-st.info("如果上方是一片空白，说明找不到 video.mp4 文件。")
+# 3. 启动应用
+# server_name="0.0.0.0" 是为了让 Streamlit Cloud 能识别并运行它
+if __name__ == "__main__":
+    demo.launch(server_name="0.0.0.0", server_port=7860)
