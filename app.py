@@ -14,7 +14,6 @@ with gr.Blocks() as demo:
         value="video.mp4", 
         label="视频预览", 
         autoplay=True, # 自动播放
-        show_share_button=True # 显示分享按钮
     )
 
 # 3. 启动应用
